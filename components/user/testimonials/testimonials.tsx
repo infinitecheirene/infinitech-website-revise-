@@ -6,7 +6,7 @@ import { Divider } from '@heroui/react'
 const Testimonials = () => {
   return (
     <section>
-      <div className='container mx-auto px-4 py-12'>
+      <div className='container mx-auto px-4 py-12 lg:py-24'>
         <Cards />
         <Divider className='my-12' />
         <Reviews />

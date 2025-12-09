@@ -111,7 +111,7 @@ const Chatbot = () => {
       {!isChatOpen && (
         <button
           onClick={() => setIsChatOpen(true)}
-          className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 flex items-center justify-center shadow-xl transition-all hover:scale-110"
+          className="fixed bottom-6 right-4 z-50 w-14 h-14 rounded-full bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 flex items-center justify-center shadow-xl transition-all hover:scale-110"
           aria-label="Open chat"
         >
           <MessageCircle className="w-7 h-7 text-white" />

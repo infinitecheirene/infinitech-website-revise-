@@ -62,7 +62,7 @@ const FloatingSocialMedia = () => {
       </div>
 
       {/* Mobile View - Toggle button and expandable menu */}
-      <div className="md:hidden fixed right-4 top-1/2 -translate-y-1/2 z-40">
+      <div className="md:hidden fixed right-4 bottom-20 -translate-y-1/2 z-40">
         {/* Toggle Button */}
         {!isExpanded ? (
           <button

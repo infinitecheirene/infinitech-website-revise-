@@ -39,6 +39,7 @@ export const members = [
     facebookname: "Maria Krissa Charez Bongon",
     href: "https://www.facebook.com/charizr1",
   },
+  // Sales Director
    {
     name: "Baby Rose Hernandez",
     position: "Sales Director",
@@ -88,15 +89,16 @@ export const members = [
     facebookname: "Justin De Castro",
     href: "https://www.facebook.com/tine.tainy",
   },
+  // Junior Web Developers
   {
     name: "Eirene Grace Armilla",
     position: "Junior Web Developer",
-    image: "eirine.png",
+    image: "eirene.png",
     email: "infinitech.eirene@gmail.com",
-    phone: "09668830150",
+    phone: "09281446745",
     telegram: {
-      title: "09668830150",
-      href: "https://t.me/EireneArmilla"
+      title: "09281446745",
+      href: "https://t.me/inifnitech_eirene"
     },
     facebookname: "Eirene Grace Armilla",
     href: "https://www.facebook.com/share/1Dfj2gvpyf/",
@@ -164,11 +166,9 @@ export const members = [
       title: "09668830150",
       href: "https://web.telegram.org/k/#5736999446"
     },
-    facebookname: "Jd Anyayahan",
+    facebookname: "JD Anyayahan",
     href: "https://www.facebook.com/share/17TegUqJzV/?mibextid=wwXIfr",
   },
-  // Junior Web Developers
-  
   {
     name: "Jayvee Valeriano",
     position: "Digital Marketing Staff",

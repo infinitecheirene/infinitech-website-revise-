@@ -439,7 +439,7 @@ const createPDF = async () => {
     <section>
       <div className="flex flex-col justify-center px-4 md:px-12 xl:px-32 2xl:px-48 py-16">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between gap-4 pb-16">
+        <div className="flex flex-col md:flex-row justify-between gap-4 py-10">
           <div className="max-w-4xl">
             <h1 className={`text-5xl text-accent ${poetsen_one.className}`}>
               GET A QUOTE
