@@ -23,7 +23,7 @@ const About = () => {
 
           <div className="space-y-6">
             <h1
-              className={`text-4xl sm:text-6xl text-primary ${poetsen_one.className}`}
+              className={`text-4xl sm:text-5xl text-primary ${poetsen_one.className}`}
             >
               Who is Infinitech Advertising Corporation?
             </h1>

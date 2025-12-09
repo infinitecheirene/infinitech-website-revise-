@@ -463,12 +463,12 @@ const PortfolioShowcase: React.FC = () => {
               <div className="w-4 h-4 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full mr-3 animate-pulse"></div>
               <span className="text-lg font-semibold">{projects.length} Live Systems</span>
             </div>
-            <div className="w-3 h-3 bg-slate-300 rounded-full"></div>
+            <div className="w-3 h-3 bg-slate-300 rounded-full hidden md:flex"></div>
             <div className="flex items-center">
               <div className="w-4 h-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full mr-3 animate-pulse" style={{animationDelay: '0.5s'}}></div>
               <span className="text-lg font-semibold">Conversion Optimized</span>
             </div>
-            <div className="w-3 h-3 bg-slate-300 rounded-full"></div>
+            <div className="w-3 h-3 bg-slate-300 rounded-full hidden md:flex"></div>
             <div className="flex items-center">
               <div className="w-4 h-4 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full mr-3 animate-pulse" style={{animationDelay: '1s'}}></div>
               <span className="text-lg font-semibold">High Performance</span>

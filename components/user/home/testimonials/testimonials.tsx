@@ -46,7 +46,7 @@ const Testimonials = () => {
         <div className="flex justify-center items-center">
           <Card className="bg-gray-100 shadow-none w-full max-w-xl">
             <CardBody>
-              <div className="py-32">
+              <div className="py-10">
                 {reviews.map((review) => (
                   <div
                     key={review.platform}
