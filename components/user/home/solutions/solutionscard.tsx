@@ -342,7 +342,7 @@ const SolutionsPage: React.FC = () => {
 
       <div 
         ref={sectionRef} 
-        className="min-h-screen w-full bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 py-12 lg:py-20"
+        className="min-h-screen w-full py-12 lg:py-20"
       >
         {/* Background Elements */}
         <div className="absolute inset-0 opacity-30 overflow-hidden">

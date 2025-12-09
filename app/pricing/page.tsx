@@ -358,7 +358,7 @@ const PricingPage = () => {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-8 lg:py-12">
+    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-24">
       {/* Header Section */}
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 mb-8 lg:mb-12">
         <div className="text-center max-w-4xl mx-auto">
