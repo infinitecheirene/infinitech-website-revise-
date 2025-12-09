@@ -12,6 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { CheckCircle2, ChevronLeft, ChevronRight, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { required } from "zod/v4/core/util.cjs"
 
 const TOTAL_STEPS = 6
 const stepTitles = ["Company & Contact", "Current Systems", "Challenges", "Hidden Needs", "Customization", "Feedback"]
@@ -295,6 +296,7 @@ export default function SurveyForm() {
                     className="border-slate-300"
                     value={formData.company_name}
                     onChange={(e) => handleInputChange("company_name", e.target.value)}
+                    required
                   />
                 </div>
                  <div className="space-y-2">
@@ -304,6 +306,7 @@ export default function SurveyForm() {
                   <Select
                     value={formData.no_of_employees}
                     onValueChange={(value) => handleInputChange("no_of_employees", value)}
+                    required
                   >
                     <SelectTrigger id="noOfEmployees" className="border-slate-300 bg-white">
                       <SelectValue placeholder="Select range" />
@@ -328,6 +331,7 @@ export default function SurveyForm() {
                     className="border-slate-300"
                     value={formData.location}
                     onChange={(e) => handleInputChange("location", e.target.value)}
+                    required
                   />
                 </div>
               </div>
@@ -375,6 +379,7 @@ export default function SurveyForm() {
                       value={formData.industry_other}
                       onChange={(e) => handleInputChange("industry_other", e.target.value)}
                       className="border-slate-300"
+                      required
                     />
                   </div>
                 )}
@@ -391,6 +396,7 @@ export default function SurveyForm() {
                     className="border-slate-300"
                     value={formData.contact_person}
                     onChange={(e) => handleInputChange("contact_person", e.target.value)}
+                    required
                   />
                 </div>
                 <div className="space-y-2">
@@ -403,6 +409,7 @@ export default function SurveyForm() {
                     className="border-slate-300"
                     value={formData.role}
                     onChange={(e) => handleInputChange("role", e.target.value)}
+                    required
                   />
                 </div>
               </div>
@@ -419,6 +426,7 @@ export default function SurveyForm() {
                     className={cn("border-slate-300", errors.email && "border-red-500 focus-visible:ring-red-500")}
                     value={formData.email}
                     onChange={handleEmailChange}
+                    required
                   />
                   {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                 </div>
@@ -433,6 +441,7 @@ export default function SurveyForm() {
                     className={cn("border-slate-300", errors.phone && "border-red-500 focus-visible:ring-red-500")}
                     value={formData.phone}
                     onChange={handlePhoneChange}
+                    required
                   />
                   {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                 </div>
