@@ -492,40 +492,31 @@ const createPDF = async () => {
 
         <div className="flex flex-col gap-4">
           {/* Plan selection */}
-          <div className="flex justify-center">
-            <div className="flex flex-wrap justify-center gap-4">
+          <div className="w-full">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 py-3 gap-3 snap-align-none">
               {Object.keys(plans).map((name) => (
                 <Link key={name} onPress={() => setPlan(name)}>
                   <Card
-                    className={`py-4 px-12 border cursor-pointer transition-all duration-200 ${
+                    className={`w-full py-4 px-5 border cursor-pointer transition-all ${
                       plan === name
                         ? "border-blue-500 ring-2 ring-blue-300"
-                        : "shadow-none"
+                        : "shadow-sm hover:shadow-md"
                     }`}
                   >
-                    <CardBody className="flex flex-col items-center justify-center gap-2">
-                    <div className="text-gray-500">
-                        {name === "website" && <LuGlobe className="w-5 h-5" />}
-                        {name === "mobile" && (
-                          <LuSmartphone className="w-5 h-5" />
-                        )}
-                        {name === "juantap" && (
-                          <LuCreditCard className="w-5 h-5" />
-                        )}
-                        {name === "photography" && (
-                          <LuCamera className="w-5 h-5" />
-                        )}
-                          {name === "multimedia" && (
-                            <LuVideo className="w-5 h-5" />
-                          )}
-                          {name === "social" && (
-                          <LuUsers className="w-5 h-5" />
-                        )}
+                    <CardBody className="flex flex-col items-center justify-center gap-3">
+                      <div className="text-gray-500">
+                        {name === "website" && <LuGlobe className="w-6 h-6" />}
+                        {name === "mobile" && <LuSmartphone className="w-6 h-6" />}
+                        {name === "juantap" && <LuCreditCard className="w-6 h-6" />}
+                        {name === "photography" && <LuCamera className="w-6 h-6" />}
+                        {name === "multimedia" && <LuVideo className="w-6 h-6" />}
+                        {name === "social" && <LuUsers className="w-6 h-6" />}
                       </div>
+
                       <div
                         className={`${
                           name === "vip" ? "uppercase" : "capitalize"
-                        } font-semibold`}
+                        } font-semibold text-center`}
                       >
                         {name}
                       </div>
@@ -535,6 +526,7 @@ const createPDF = async () => {
               ))}
             </div>
           </div>
+
 
           {/* Services - Special layout for website and mobile */}
           {(plan === "website" || plan === "mobile") && (

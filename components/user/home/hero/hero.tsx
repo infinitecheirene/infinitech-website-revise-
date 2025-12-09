@@ -5,7 +5,7 @@ import Right from "./right";
 const Hero = () => {
   return (
     <section
-      className="bg-right bg-cover"
+      className="bg-right bg-cover lg:py-20"
       style={{
         backgroundImage: "url('/images/rainbow.svg')",
       }}
