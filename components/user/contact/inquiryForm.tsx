@@ -62,13 +62,13 @@ const InquiryForm = () => {
             <Field name="name">
               {({ field, meta }: FieldProps) => (
                 <div>
+                  <label className="py-1 font-semibold">Full Name</label>
                   <Input
                     {...field}
                     type="text"
                     size="lg"
-                    label="Full Name"
                     variant="bordered"
-                    placeholder="eg. Juan Dela Cruz"
+                    placeholder="Enter Full Name"
                   />
                   {meta.touched && meta.error && (
                     <small className="text-red-500">{meta.error}</small>
@@ -81,13 +81,13 @@ const InquiryForm = () => {
             <Field name="email">
               {({ field, meta }: FieldProps) => (
                 <div>
+                  <label className="py-1 font-semibold">Email Address</label>
                   <Input
                     {...field}
                     type="email"
                     size="lg"
-                    label="Email Address"
                     variant="bordered"
-                    placeholder="eg. juandelacruz@gmail.com"
+                    placeholder="Enter Email Address"
                   />
                   {meta.touched && meta.error && (
                     <small className="text-red-500">{meta.error}</small>
@@ -100,13 +100,13 @@ const InquiryForm = () => {
             <Field name="phone">
               {({ field, meta }: FieldProps) => (
                 <div>
+                  <label className="py-1 font-semibold">Phone Number</label>
                   <Input
                     {...field}
                     type="text"
                     size="lg"
-                    label="Phone Number"
                     variant="bordered"
-                    placeholder="eg. 09924401097"
+                    placeholder="Enter Phone Number"
                   />
                   {meta.touched && meta.error && (
                     <small className="text-red-500">{meta.error}</small>
@@ -119,10 +119,10 @@ const InquiryForm = () => {
             <Field name="message">
               {({ field, meta }: FieldProps) => (
                 <div>
+                  <label className="py-1 font-semibold">Message</label>
                   <Textarea
                     {...field}
                     size="lg"
-                    label="Message"
                     variant="bordered"
                     placeholder="Leave us a message..."
                   />

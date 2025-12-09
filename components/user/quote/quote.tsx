@@ -455,30 +455,38 @@ const createPDF = async () => {
         <div className="mb-8">
           <h2 className="text-2xl font-bold mb-4">Client Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="p-1 font-semibold">Client Name</label>
+              <Input
+                placeholder="Enter client name"
+                value={clientInfo.name}
+                onChange={(e) => setClientInfo({...clientInfo, name: e.target.value})}
+              />
+            </div>
+            <div>
+              <label className="p-1 font-semibold">Address</label>
+              <Input
+                placeholder="Enter address"
+                value={clientInfo.address}
+                onChange={(e) => setClientInfo({...clientInfo, address: e.target.value})}
+              />
+            </div>
+            <div>
+              <label className="p-1 font-semibold">Phone Number</label>
             <Input
-              label="Client Name"
-              placeholder="Enter client name"
-              value={clientInfo.name}
-              onChange={(e) => setClientInfo({...clientInfo, name: e.target.value})}
-            />
-            <Input
-              label="Address"
-              placeholder="Enter address"
-              value={clientInfo.address}
-              onChange={(e) => setClientInfo({...clientInfo, address: e.target.value})}
-            />
-            <Input
-              label="Phone Number"
               placeholder="Enter phone number"
               value={clientInfo.phone}
               onChange={(e) => setClientInfo({...clientInfo, phone: e.target.value})}
             />
-            <Input
-              label="Email Address"
-              placeholder="Enter email address"
-              value={clientInfo.email}
-              onChange={(e) => setClientInfo({...clientInfo, email: e.target.value})}
-            />
+            </div>
+            <div>
+              <label className="p-1 font-semibold">Email Address</label>
+              <Input
+                placeholder="Enter email address"
+                value={clientInfo.email}
+                onChange={(e) => setClientInfo({...clientInfo, email: e.target.value})}
+              />
+            </div>
           </div>
         </div>
 
