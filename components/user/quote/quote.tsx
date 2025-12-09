@@ -15,15 +15,19 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { sendQuotation } from "@/actions/user";
 import { plans } from "@/data/plans";
+
+import { Inquiry as Values } from "@/types/user";
+import { Inquiry as validationSchema } from "@/schemas/user";
+import { Formik, Form, Field, FieldProps } from "formik";
 import { Service } from "@/types/user";
- import {
-     LuGlobe,
-     LuSmartphone,
-     LuCreditCard,
-     LuCamera,
-     LuVideo,
-     LuUsers, // Add this for social media management
-   } from "react-icons/lu";
+import {
+  LuGlobe,
+  LuSmartphone,
+  LuCreditCard,
+  LuCamera,
+  LuVideo,
+  LuUsers, // Add this for social media management
+  } from "react-icons/lu";
 
 type ServiceCategory = {
   category: string;
@@ -79,7 +83,7 @@ const createPDF = async () => {
   // === LOGO ===
   if (logo) {
     const logoWidth = 120;
-    const logoHeight = 55;
+    const logoHeight = 100;
     const logoX = (pageWidth - logoWidth) / 2;
     pdf.addImage(logo, "PNG", logoX, y, logoWidth, logoHeight);
     y += logoHeight + 40;
@@ -462,6 +466,9 @@ const createPDF = async () => {
                 value={clientInfo.name}
                 onChange={(e) => setClientInfo({...clientInfo, name: e.target.value})}
               />
+              {clientInfo.name === "" && (
+                <p className="text-red-500 text-sm mt-1">Client name is required</p>
+              )}
             </div>
             <div>
               <label className="p-1 font-semibold">Address</label>
@@ -470,6 +477,9 @@ const createPDF = async () => {
                 value={clientInfo.address}
                 onChange={(e) => setClientInfo({...clientInfo, address: e.target.value})}
               />
+              {clientInfo.name === "" && (
+                <p className="text-red-500 text-sm mt-1">Address is required</p>
+              )}
             </div>
             <div>
               <label className="p-1 font-semibold">Phone Number</label>
@@ -478,6 +488,9 @@ const createPDF = async () => {
               value={clientInfo.phone}
               onChange={(e) => setClientInfo({...clientInfo, phone: e.target.value})}
             />
+            {clientInfo.name === "" && (
+                <p className="text-red-500 text-sm mt-1">Phone Number is required</p>
+              )}
             </div>
             <div>
               <label className="p-1 font-semibold">Email Address</label>
@@ -486,6 +499,9 @@ const createPDF = async () => {
                 value={clientInfo.email}
                 onChange={(e) => setClientInfo({...clientInfo, email: e.target.value})}
               />
+              {clientInfo.name === "" && (
+                <p className="text-red-500 text-sm mt-1">Email Address is required</p>
+              )}
             </div>
           </div>
         </div>
