@@ -69,6 +69,7 @@ const InquiryForm = () => {
                     size="lg"
                     variant="bordered"
                     placeholder="Enter Full Name"
+                    required
                   />
                   {meta.touched && meta.error && (
                     <small className="text-red-500">{meta.error}</small>
