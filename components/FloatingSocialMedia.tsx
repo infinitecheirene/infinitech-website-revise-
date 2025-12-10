@@ -85,7 +85,7 @@ const FloatingSocialMedia = () => {
             </button>
 
             {/* Social Links */}
-            <div className="flex flex-col-reverse gap-3 animate-fadeIn">
+            <div className="fixed bottom-20 right-1 flex flex-col-reverse gap-3 animate-fadeIn">
               {socialLinks.map((link, index) => {
                 const Icon = link.icon;
                 const reverseIndex = socialLinks.length - 1 - index;
