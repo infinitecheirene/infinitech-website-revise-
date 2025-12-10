@@ -412,7 +412,7 @@ const PortfolioShowcase: React.FC = () => {
             PORTFOLIO SHOWCASE
           </div>
           
-          <h1 className="text-4xl md:text-6xl lg:text-8xl font-black text-slate-800 mb-6 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-800 mb-6 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
             Our Work
           </h1>
           
