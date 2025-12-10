@@ -11,7 +11,7 @@ const About = () => {
 
   return (
     <section>
-      <div className="container mx-auto px-4 pt-12 2xl:py-12">
+      <div className="container mx-auto px-4 pt-16 2xl:py-12">
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-center">
           <div className="px-0 md:px-4 flex justify-center">
             <Image
@@ -23,7 +23,7 @@ const About = () => {
 
           <div className="space-y-6">
             <h1
-              className={`text-4xl sm:text-5xl text-primary ${poetsen_one.className}`}
+              className={`text-4xl py-6 sm:text-5xl text-primary ${poetsen_one.className}`}
             >
               Who is Infinitech Advertising Corporation?
             </h1>
