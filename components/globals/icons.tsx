@@ -3,7 +3,7 @@ import * as React from "react";
 import { IconSvgProps as Props } from "@/types/globals";
 
 export const Logo = () => (
-  <img src="/images/logo-only.png" alt="Logo" className="h-20 md:h-24 max-w-sm " />
+  <img src="/images/logo-only.png" alt="Logo" className="h-20 md:h-24 w-auto " />
 );
 
 export const Discord = ({ size = 24, width, height, ...props }: Props) => {

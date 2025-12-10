@@ -72,8 +72,8 @@ const NavBar = () => {
         >
           <Logo />
           <div className="flex-col leading-tight">
-            <p className="hidden xl:flex font-bold text-md xl:text-3xl text-primary">INFINITECH</p>
-            <p className="hidden xl:flex text-xs font-semibold text-primary whitespace-nowrap">
+            <p className="hidden md:flex font-bold text-md xl:text-3xl text-primary">INFINITECH</p>
+            <p className="hidden md:flex text-xs font-semibold text-primary whitespace-nowrap">
               ADVERTISING CORPORATION
             </p>
           </div>
@@ -171,18 +171,6 @@ const NavBar = () => {
               {link.name}
             </NavbarMenuItem>
           ))}
-
-          {showInstallButton && (
-            <NavbarMenuItem
-              className="cursor-pointer text-blue-600 text-lg"
-              onClick={() => {
-                handleInstallApp();
-                setIsOpen(false);
-              }}
-            >
-              Install App
-            </NavbarMenuItem>
-          )}
 
           <NavbarMenuItem
             className={`cursor-pointer text-lg ${
