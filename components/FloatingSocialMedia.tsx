@@ -78,7 +78,7 @@ const FloatingSocialMedia = () => {
             {/* Close Button at Bottom */}
             <button
               onClick={() => setIsExpanded(false)}
-              className="w-14 h-14 rounded-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 flex items-center justify-center shadow-xl transition-all hover:scale-110 mt-3"
+              className="w-14 h-14 rounded-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 flex items-center justify-center shadow-xl transition-all hover:scale-110"
               aria-label="Close social media menu"
             >
               <X className="w-7 h-7 text-white" />
