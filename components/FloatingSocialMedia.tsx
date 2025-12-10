@@ -43,7 +43,7 @@ const FloatingSocialMedia = () => {
   return (
     <>
       {/* Desktop View - Always show all icons */}
-      <div className="hidden md:flex fixed right-0 top-1/2 -translate-y-1/2 z-40 flex-col gap-3 pr-4">
+      <div className="hidden md:flex fixed right-0 bottom-1 -translate-y-1/2 z-40 flex-col gap-3 pr-6">
         {socialLinks.map((link, index) => {
           const Icon = link.icon;
           return (
