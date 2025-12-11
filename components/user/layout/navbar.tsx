@@ -71,16 +71,15 @@ const NavBar = () => {
           onClick={() => router.push("/")}
         >
           <Logo />
-          <div className="flex-col leading-tight">
-            <p className="hidden md:flex font-bold text-md xl:text-3xl text-primary">INFINITECH</p>
-            <p className="hidden md:flex text-xs font-semibold text-primary whitespace-nowrap">
+          <div className="hidden md:flex flex-col leading-tight">
+            <p className="font-bold text-md xl:text-3xl text-primary">INFINITECH</p>
+            <p className="text-xs font-semibold text-primary whitespace-nowrap">
               ADVERTISING CORPORATION
             </p>
           </div>
         </NavbarBrand>
       </NavbarContent>
 
-      {/* CENTER — Desktop Navigation */}
       <NavbarContent
         justify="center"
         className="hidden xl:flex gap-1 xl:gap-3"
@@ -102,7 +101,6 @@ const NavBar = () => {
         ))}
       </NavbarContent>
 
-      {/* RIGHT — Desktop Actions */}
       <NavbarContent
         className="hidden xl:flex basis-auto"
         justify="end"
@@ -132,7 +130,6 @@ const NavBar = () => {
         </NavbarItem>
       </NavbarContent>
 
-      {/* RIGHT SECTION — Mobile */}
       <NavbarContent
         className="xl:hidden basis-auto pl-3"
         justify="end"

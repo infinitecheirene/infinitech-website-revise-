@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { MessageCircle, Send, Facebook, Phone, Mail, Globe, X } from 'lucide-react';
+import { MessageCircle, Mail, Facebook, Phone, Smartphone, Globe, X } from 'lucide-react';
 
 const FloatingSocialMedia = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -14,30 +14,36 @@ const FloatingSocialMedia = () => {
       bgColor: "bg-blue-600 hover:bg-blue-700",
       title: "Facebook"
     },
-    {
-      href: "https://wa.me/",
-      icon: MessageCircle,
-      bgColor: "bg-green-600 hover:bg-green-700",
-      title: "WhatsApp"
-    },
-    {
-      href: "https://maps.google.com/?q=Campos Rueda Building, 311 Urban Ave, Makati, 1206 Metro Manila",
-      icon: Send,
-      bgColor: "bg-sky-500 hover:bg-sky-600",
-      title: "Location"
-    },
+//    {
+//      href: "https://wa.me/",
+//      icon: MessageCircle,
+//      bgColor: "bg-green-600 hover:bg-green-700",
+//      title: "WhatsApp"
+//    },
+//    {
+//      href: "https://maps.google.com/?q=Campos Rueda Building, 311 Urban Ave, Makati, 1206 Metro Manila",
+//      icon: Send,
+//      bgColor: "bg-sky-500 hover:bg-sky-600",
+//      title: "Location"
+//    },
     {
       href: "mailto:infinitechcorp.ph@gmail.com",
       icon: Mail,
       bgColor: "bg-red-600 hover:bg-red-700",
-      title: "Email"
+      title: "Email",
     },
     {
-      href: "tel:+63",
+      href: "tel:(+63)9195874915",
+      icon: Smartphone,
+      bgColor: "bg-green-500 hover:bg-blue-600",
+      title: "Phone",
+    },
+    {
+      href: "tel:(02)7001-6157",
       icon: Phone,
-      bgColor: "bg-blue-500 hover:bg-blue-600",
-      title: "Phone"
-    }
+      bgColor: "bg-sky-500 hover:bg-sky-600",
+      title: "Phone",
+    },
   ];
 
   return (

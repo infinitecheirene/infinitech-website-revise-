@@ -28,19 +28,19 @@ const About = () => {
               Who is Infinitech Advertising Corporation?
             </h1>
             <div className="space-y-4">
-              <p className="text-base md:text-lg">
+              <p className="text-base md:text-lg text-justify">
                 At <strong>Infinitech Advertising Company</strong>, our mission
                 is to help businesses thrive by providing top-notch digital
                 solutions that boost growth, streamline operations, and enhance
                 user satisfaction.
               </p>
-              <p className="text-base md:text-lg">
+              <p className="text-base md:text-lg text-justify">
                 We are committed to customer satisfaction, offering a guarantee
                 of unique web design and high-quality work. Our expertise spans
                 Website Design and Development, Mobile App Development,
                 Ecommerce Solutions, and IT Outsourcing.
               </p>
-              <p className="text-base md:text-lg">
+              <p className="text-base md:text-lg text-justify">
                 Through our innovative solutions, we ensure our clients achieve
                 their goals and experience exceptional service.
               </p>

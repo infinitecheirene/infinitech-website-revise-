@@ -43,7 +43,7 @@ const Services = () => {
   ];
 
   return (
-    <section className="container mx-auto py-12 px-4 md:pb-0">
+    <section className="container mx-auto py-24 px-4">
       <div className="flex flex-col justify-center items-center">
         <div className="flex justify-between">
           <div className="max-w-xl text-center">
@@ -82,7 +82,7 @@ const Services = () => {
                         {service.subtitle}
                       </h1>
 
-                      <p className="text-lg text-gray-600">
+                      <p className="text-lg text-gray-600 text-justify">
                         {service.description}
                       </p>
                     </div>
