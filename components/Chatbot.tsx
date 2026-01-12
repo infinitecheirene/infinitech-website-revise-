@@ -40,63 +40,123 @@ const Chatbot = () => {
     scrollToBottom();
   }, [messages, isTyping]);
 
-  const handleQuickReply = (reply: string) => {
-    setMessages([...messages, { type: 'user', text: reply, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
-    
-    setIsTyping(true);
-    
-    setTimeout(() => {
-      let response = '';
-      
-      switch(reply) {
-        case 'Our Services':
-          response = "We offer Web Development, System Solutions, Digital Marketing, and Brand Enhancement services. All designed to help your business stand out!";
-          break;
-        case 'About Us':
-          response = "Infinitech Advertising Corporation delivers innovative solutions that enhance your brand. With 2+ years of experience and 20+ completed projects, we help businesses grow effectively!";
-          break;
-        case 'Contact Info':
-          response = "📍 Campos Rueda Building, 311 Urban Ave, Makati, 1206 Metro Manila\n📧 infinitechcorp.ph@gmail.com";
-          break;
-        case 'Web Development':
-          response = "We create high-quality, responsive websites tailored to your business needs. From design to deployment, we've got you covered!";
-          break;
-        case 'Digital Marketing':
-          response = "Our digital marketing strategies drive growth and enhance your online presence using the latest technology and creative ideas.";
-          break;
-        case 'Get a Quote':
-          response = "I'd be happy to help you with a quote! Please email us at infinitechcorp.ph@gmail.com with your project details, and our team will get back to you shortly.";
-          break;
-        default:
-          response = `Thank you for asking about "${reply}". Our team will provide you with more information shortly.`;
-      }
-      
-      setIsTyping(false);
-      setMessages(prev => [...prev, { 
-        type: 'bot', 
-        text: response, 
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      }]);
-    }, 1500);
-  };
+  const handleQuickReply = async (reply: string) => {
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-  const handleSendMessage = () => {
-    if (message.trim()) {
-      setMessages([...messages, { type: 'user', text: message, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
-      setMessage('');
-      
-      setIsTyping(true);
-      
-      setTimeout(() => {
-        setIsTyping(false);
-        setMessages(prev => [...prev, { 
-          type: 'bot', 
-          text: "Thank you for your message! Our team will respond shortly. For immediate assistance, please email us at infinitechcorp.ph@gmail.com", 
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        }]);
-      }, 1500);
+    // 1️⃣ Add user message
+    setMessages(prev => [
+      ...prev,
+      { type: 'user', text: reply, time }
+    ]);
+
+    setIsTyping(true);
+
+    // 2️⃣ Predefined replies
+    const predefinedReplies: Record<string, string> = {
+      'Our Services':
+        "We offer Web Development, System Solutions, Digital Marketing, and Brand Enhancement services. All designed to help your business stand out!",
+      'About Us':
+        "Infinitech Advertising Corporation delivers innovative solutions that enhance your brand. With 2+ years of experience and 20+ completed projects, we help businesses grow effectively!",
+      'Contact Info':
+        "Location: Campos Rueda Building, 311 Urban Ave, Makati, 1206 Metro Manila\n\n Email: infinitechcorp.ph@gmail.com",
+      'Web Development':
+        "We create high-quality, responsive websites tailored to your business needs. From design to deployment, we've got you covered!",
+      'Digital Marketing':
+        "Our digital marketing strategies drive growth and enhance your online presence using the latest technology and creative ideas.",
+      'Get a Quote':
+        "I'd be happy to help you with a quote! Please email us at infinitechcorp.ph@gmail.com with your project details, and our team will get back to you shortly."
+    };
+
+    // 3️⃣ If predefined → reply immediately
+    if (predefinedReplies[reply]) {
+      setIsTyping(false);
+      setMessages(prev => [
+        ...prev,
+        {
+          type: 'bot',
+          text: predefinedReplies[reply],
+          time
+        }
+      ]);
+      return;
+    }
+
+    // 4️⃣ Otherwise → send to AI
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: reply })
+      });
+
+      const data = await res.json();
+
+      setMessages(prev => [
+        ...prev,
+        {
+          type: 'bot',
+          text: data.reply || 'No response from AI.',
+          time
+        }
+      ]);
+    } catch (error) {
+      setMessages(prev => [
+        ...prev,
+        {
+          type: 'bot',
+          text: '⚠️ Sorry, something went wrong. Please try again.',
+          time
+        }
+      ]);
+    } finally {
+      setIsTyping(false);
     }
   };
+
+  const handleSendMessage = async () => {
+    if (!message.trim()) return;
+
+    const userMessage: Message = {
+      type: "user",
+      text: message,
+      time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setMessage("");
+    setIsTyping(true);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage.text })
+      });
+
+      const data = await res.json();
+
+      setMessages(prev => [
+        ...prev,
+        {
+          type: "bot",
+          text: data.reply,
+          time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+        }
+      ]);
+    } catch (error) {
+      setMessages(prev => [
+        ...prev,
+        {
+          type: "bot",
+          text: "⚠️ Something went wrong. Please try again.",
+          time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+        }
+      ]);
+    } finally {
+      setIsTyping(false);
+    }
+  };
+
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
