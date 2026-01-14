@@ -13,7 +13,7 @@ export async function POST(req: Request) {
                 "X-Title": "Infinitech Chatbot"
             },
             body: JSON.stringify({
-                model: "qwen/qwen3-4b:free",
+                model: "allenai/molmo-2-8b:free",
                 messages: [
                     {
                     role: "system",

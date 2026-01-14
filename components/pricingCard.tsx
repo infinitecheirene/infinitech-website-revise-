@@ -2,11 +2,9 @@
 
 import type React from "react"
 import { Check, ShoppingCart, Plus } from "lucide-react"
-import { motion } from "framer-motion"
-import { cn } from "@/lib/utils"
-import { useDeviceType } from "@/hooks/use-device"
+import { useMediaQuery } from 'react-responsive'
 
-export interface Plan {
+interface Plan {
   name: string
   description?: string
   popular: boolean
@@ -19,130 +17,217 @@ export interface Plan {
 
 interface PricingCardProps {
   plan: Plan
-  billingPeriod: "monthly" | "yearly"
-  price: number
-  currency?: string
+  billingPeriod: "monthly" | "yearly" | "piece"
   onAddToCart?: () => void
-  isInCart?: boolean
-  isColumnHovered?: boolean
-  index: number
+  isHovered?: boolean
+  isSmall?: boolean
 }
 
-const gradients = ["from-cyan-600 to-blue-600", "from-pink-500 to-yellow-500", "from-green-400 to-teal-500", "from-purple-600 to-indigo-600"]
+const PricingCard: React.FC<PricingCardProps> = ({
+  plan,
+  billingPeriod,
+  onAddToCart,
+  isHovered = false,
+  isSmall = false,
+}) => {
+  const getPrice = () => {
+    if (billingPeriod === "yearly") {
+      return plan.yearlyPrice || 0
+    }
+    return plan.monthlyPrice || 0
+  }
 
-const PricingCard: React.FC<PricingCardProps> = ({ plan, billingPeriod, price, currency = "$", onAddToCart, isInCart, isColumnHovered, index }) => {
-  const device = useDeviceType()
-  const gradient = gradients[index % gradients.length]
+  const price = getPrice()
 
-  return (
-    <motion.div
-      className={cn(
-        "relative bg-white border border-slate-200 rounded-2xl shadow-md group",
-        plan.popular && "bg-amber-500 shadow-xl shadow-amber-500/20 border border-amber-500",
-        plan.name === "Elite" && " bg-gray-500 shadow-xl shadow-gray-500/20 border border-gray-500",
-        isColumnHovered || device !== "laptop" ? "mb-20 rounded-t-2xl" : "rounded-2xl",
-      )}
-    >
-      {/* Popular Badge */}
-      {plan.popular && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className={`absolute -top-3 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-yellow-500 to-yellow-200 rounded-full text-xs font-bold text-black
-            ${isColumnHovered || device !== "laptop" ? "left-1/2" : "left-12"}`}
-        >
-          Most Popular
-        </motion.div>
-      )}
+  const getBillingText = () => {
+    if (billingPeriod === "piece") return "/piece"
+    return billingPeriod === "yearly" ? "/year" : "/month"
+  }
 
-      {/* CONTENT */}
-      <div className="p-5 flex flex-col gap-2 mb-10">
-        {/* Plan Header */}
-        <div>
-          <h3 className={cn("text-lg font-bold text-black", plan.name === "Elite" && "text-white")}>{plan.name}</h3>
-          {(isColumnHovered || device !== "laptop") && plan.badge && (
-            <p className={cn("text-xs", plan.name === "Elite" && "text-white")}>{plan.badge}</p>
-          )}
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 1224px)'
+  })
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+
+  // Collapsed state - show only title and price vertically (when another card is clicked)
+  if (isSmall) {
+    return (
+      <div
+        className={`relative rounded-2xl transition-all duration-500 ease-in-out ${plan.popular
+            ? "bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-cyan-500"
+            : "bg-slate-800/50 border border-slate-700"
+          } w-20 md:w-24 h-full flex items-center justify-center p-2`}
+      >
+        <div className="transform -rotate-90 whitespace-nowrap text-center flex flex-col items-center gap-2">
+          <h3 className="font-bold text-white text-sm md:text-base">{plan.name}</h3>
+          <div className="flex items-baseline gap-0.5">
+            <span className="font-black text-white text-lg">₱</span>
+            <span className="font-black text-white text-xl">
+              {price.toLocaleString("en-PH", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+            </span>
+          </div>
+          <span className="text-slate-400 font-medium text-xs">{getBillingText()}</span>
         </div>
+      </div>
+    )
+  }
 
-        {/* Features (shown only when column hovered) */}
-        <motion.div
-          initial={false}
-          animate={{
-            height: isColumnHovered || device !== "laptop" ? "auto" : 0,
-            opacity: isColumnHovered || device !== "laptop" ? 1 : 0,
-          }}
-          transition={{ duration: 0.3 }}
-          className="overflow-hidden"
+  // Default/Normal state - show full card details
+  return (
+    <>
+      {isTabletOrMobile &&
+        <div
+          className={`relative rounded-2xl transition-all duration-500 ease-in-out cursor-pointer ${isHovered ? "z-20 shadow-2xl shadow-cyan-500/20" : "w-[50vh]"
+            } ${plan.popular
+              ? "bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-cyan-500 shadow-2xl shadow-cyan-500/20 hover:shadow-cyan-500/40"
+              : "bg-slate-800/50 border border-slate-700 hover:bg-slate-800/70 hover:shadow-lg"
+            }`}
         >
-          {(isColumnHovered || device !== "laptop") && (
-            <>
-              <div className="grid grid-cols-2 gap-y-2 border-t border-slate-200 pt-3">
-                {plan.features.map((feature, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{
-                      opacity: isColumnHovered || device !== "laptop" ? 1 : 0,
-                      x: isColumnHovered || device !== "laptop" ? 0 : -10,
-                    }}
-                    transition={{ delay: idx * 0.05 }}
-                    className="flex items-start gap-2"
-                  >
-                    <Check className={cn("w-3.5 h-3.5 mt-0.5 text-black", plan.name === "Elite" && "text-yellow-500")} />
-                    <span className={cn("text-black text-xs leading-relaxed", plan.name === "Elite" && "text-white")}>{feature}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </>
+          {plan.popular && (
+            <div className="absolute -top-3 left-6 z-20">
+              <span className="inline-block px-3 py-1 bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-xs font-bold rounded-full">
+                Most Popular
+              </span>
+            </div>
           )}
-          {/* PRICE BOX */}
-          <div
-            className={cn(
-              "absolute -bottom-10 right-0 border border-white shadow-xl bg-white rounded-b-3xl p-2",
-              plan.popular && "bg-amber-500 shadow-xl shadow-amber-500/20 border border-amber-500",
-              plan.name === "Elite" && " bg-gray-500 shadow-xl shadow-gray-500/20 border border-gray-500",
-            )}
-          >
-            <div className={`flex items-end justify-end gap-4 bg-gradient-to-r ${gradient} shadow-lg rounded-2xl p-3`}>
-              <div className="text-right">
-                <div className="flex items-center gap-0.5">
-                  <span className="text-3xl font-black text-white">{currency}</span>
-                  <span className="text-2xl font-black text-white">
-                    {price.toLocaleString("en-PH", {
-                      minimumFractionDigits: 0,
-                      maximumFractionDigits: 0,
-                    })}
+
+          <div className={`p-5 lg:p-6 transition-all duration-500 flex flex-col ${isHovered ? "" : "h-[520px]"}`}>
+            {/* Plan Header */}
+            <div className="mb-4">
+              <h3 className={`font-bold text-white transition-all duration-500 ${isHovered ? "text-4xl mb-2" : "text-3xl mb-1"}`}>
+                {plan.name}
+              </h3>
+              {plan.badge && (
+                <p className={`text-slate-400 transition-all duration-500 ${isHovered ? "text-sm" : "text-xs"}`}>
+                  {plan.badge}
+                </p>
+              )}
+            </div>
+
+            {/* Features Section */}
+            <div className="mb-4 flex-1">
+              <h4 className={`font-semibold text-white mb-3 transition-all duration-500 ${isHovered ? "text-lg" : "text-md"}`}>
+                What's included:
+              </h4>
+              <div className={`transition-all duration-500 ${isHovered ? "grid grid-cols-2 gap-3" : "grid grid-cols-1 gap-2"}`}>
+                {(isHovered ? plan.features : plan.features.slice(0, 8)).map((feature, idx) => (
+                  <div key={idx} className="flex items-start gap-2">
+                    <Check
+                      className={`flex-shrink-0 transition-all duration-500 ${plan.popular ? "text-cyan-400" : "text-slate-400"
+                        } ${isHovered ? "w-5 h-5 mt-0.5" : "w-3 h-3 mt-0.5"}`}
+                    />
+                    <span className={`text-slate-200 leading-relaxed transition-all duration-500 ${isHovered ? "text-sm" : "text-md"}`}>
+                      {feature}
+                    </span>
+                  </div>
+                ))}
+                {!isHovered && plan.features.length > 8 && (
+                  <span className="text-slate-400 text-xs italic">+{plan.features.length - 8} more</span>
+                )}
+              </div>
+            </div>
+
+            {/* Price & Button */}
+            <div className="flex items-end justify-between gap-3 pt-4 border-t border-slate-700 mt-auto">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-baseline gap-1 mb-1">
+                  <span className={`font-black text-white transition-all duration-500 ${isHovered ? "text-2xl" : "text-3xl"}`}>
+                    ₱
                   </span>
-                  <span className="text-slate-300 text-xs font-medium">/{billingPeriod === "yearly" ? "year" : "month"}</span>
+                  <span className={`font-black text-white transition-all duration-500 ${isHovered ? "text-4xl" : "text-3xl"}`}>
+                    {price.toLocaleString("en-PH", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                  </span>
                 </div>
+                <span className="text-slate-400 font-medium text-md block truncate">{getBillingText()}</span>
               </div>
 
-              {/* ADD TO CART */}
-              <motion.button
-                whileHover={{ scale: 1.06 }}
-                whileTap={{ scale: 0.94 }}
+              <button
                 onClick={(e) => {
                   e.stopPropagation()
                   onAddToCart?.()
                 }}
-                className={cn(
-                  "relative p-3 rounded-xl transition-all duration-300",
-                  isInCart
-                    ? "bg-green-500 text-white"
-                    : plan.popular
-                      ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:from-cyan-600 hover:to-blue-600 shadow-lg hover:shadow-xl"
-                      : "bg-slate-700 text-white hover:bg-slate-600 border border-slate-600",
-                )}
+                className={`p-2.5 rounded-xl transition-all duration-300 flex-shrink-0 ${plan.popular
+                    ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:from-cyan-600 hover:to-blue-600 shadow-lg hover:shadow-xl"
+                    : "bg-slate-700 text-white hover:bg-slate-600 border border-slate-600"
+                  }`}
+                title="Add to cart"
               >
-                <ShoppingCart className="w-5 h-5" />
-                {!isInCart && <Plus className="absolute -top-1 -right-1 w-4 h-4 bg-cyan-500 rounded-full p-0.5" />}
-              </motion.button>
+                <ShoppingCart className="w-4 h-4" />
+              </button>
             </div>
           </div>
-        </motion.div>
-      </div>
-    </motion.div>
+        </div>
+      }
+
+      {isDesktopOrLaptop &&
+        <div
+          className={`relative rounded-2xl transition-all duration-300 ${plan.popular
+              ? "bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-cyan-500 shadow-2xl shadow-cyan-500/20"
+              : "bg-slate-800/50 border border-slate-700 hover:bg-slate-800/70"
+            }`}
+        >
+          {/* Popular Badge */}
+          {plan.popular && (
+            <div className="absolute -top-3 left-6">
+              <span className="inline-block px-3 py-1 bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-xs font-bold rounded-full">
+                Most Popular
+              </span>
+            </div>
+          )}
+
+          <div className="p-5 flex flex-row gap-6">
+            {/* Left: Plan Info & Features */}
+            <div className="flex-1 min-w-0">
+              {/* Plan Header */}
+              <div className="mb-3">
+                <h3 className="text-lg font-bold text-white">{plan.name}</h3>
+                {plan.badge && <p className="text-xs text-slate-400">{plan.badge}</p>}
+              </div>
+
+              {/* Features List - Two columns */}
+              <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
+                {plan.features.map((feature, idx) => (
+                  <div key={idx} className="flex items-start gap-2">
+                    <Check
+                      className={`w-3.5 h-3.5 mt-0.5 flex-shrink-0 ${plan.popular ? "text-cyan-400" : "text-slate-400"}`}
+                    />
+                    <span className="text-slate-300 text-xs leading-relaxed">{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right: Price & Cart Button */}
+            <div className="flex flex-col items-end justify-between shrink-0">
+              {/* Price */}
+              <div className="text-right">
+                <div className="flex items-baseline gap-0.5">
+                  <span className="text-2xl font-black text-white">₱</span>
+                  <span className="text-2xl font-black text-white">
+                    {price.toLocaleString("en-PH", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                  </span>
+                </div>
+                <span className="text-slate-400 font-medium text-xs">/{billingPeriod === "yearly" ? "year" : "month"}</span>
+              </div>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onAddToCart?.()
+                }}
+                className={`p-2.5 rounded-xl transition-all duration-300 flex-shrink-0 ${plan.popular
+                    ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:from-cyan-600 hover:to-blue-600 shadow-lg hover:shadow-xl"
+                    : "bg-slate-700 text-white hover:bg-slate-600 border border-slate-600"
+                  }`}
+                title="Add to cart"
+              >
+                <ShoppingCart className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </>
   )
 }
 
