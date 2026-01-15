@@ -310,9 +310,9 @@ const PricingPage = () => {
   }
 
   const isDesktopOrLaptop = useMediaQuery({
-    query: '(min-width: 1024px)'
+    query: '(min-width: 1000px)'
   })
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1023px)' })
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 999px)' })
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 text-white py-16">
@@ -327,7 +327,7 @@ const PricingPage = () => {
           </p>
 
           {/* Service Selector */}
-          <div className="flex justify-center gap-2 mb-6 overflow-x-auto pb-2">
+          <div className="grid grid-cols-2 md:grid-cols-4 justify-center gap-2 mb-6 overflow-x-auto pb-2">
             {Object.entries(services).map(([key, service]) => (
               <button
                 key={key}
@@ -381,12 +381,12 @@ const PricingPage = () => {
       </section>
 
       {isTabletOrMobile &&
-        <section className="mx-auto px-6 flex flex-col pb-20 items-center">
+        <section className="mx-auto px-6 flex flex-col pb-10 items-center">
           {/* Pricing Cards Container */}
           <div className="flex-1">
             <div className="relative">
               <div className="py-8" onClick={() => setSelectedCardIndex(null)}>
-                <div className="flex-1 grid grid-cols-1 md:grid-cols-2 justify-center">
+                <div className="flex-1 justify-center">
                   {currentPlans.map((plan, index) => (
                     <div
                       key={index}

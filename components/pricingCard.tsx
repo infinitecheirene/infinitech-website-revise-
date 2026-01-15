@@ -45,20 +45,20 @@ const PricingCard: React.FC<PricingCardProps> = ({
   }
 
   const isDesktopOrLaptop = useMediaQuery({
-    query: '(min-width: 1224px)'
+    query: '(min-width: 1000px)'
   })
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 999px)' })
 
   // Collapsed state - show only title and price vertically (when another card is clicked)
   if (isSmall) {
     return (
       <div
-        className={`relative rounded-2xl transition-all duration-500 ease-in-out ${plan.popular
+        className={`my-6 relative rounded-2xl transition-all duration-500 ease-in-out ${plan.popular
             ? "bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-cyan-500"
             : "bg-slate-800/50 border border-slate-700"
-          } w-20 md:w-24 h-full flex items-center justify-center p-2`}
+          } h-full flex items-center justify-center p-2`}
       >
-        <div className="transform -rotate-90 whitespace-nowrap text-center flex flex-col items-center gap-2">
+        <div className="transform whitespace-nowrap text-center flex flex-col items-center gap-2">
           <h3 className="font-bold text-white text-sm md:text-base">{plan.name}</h3>
           <div className="flex items-baseline gap-0.5">
             <span className="font-black text-white text-lg">₱</span>
@@ -77,7 +77,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
     <>
       {isTabletOrMobile &&
         <div
-          className={`relative rounded-2xl transition-all duration-500 ease-in-out cursor-pointer ${isHovered ? "z-20 shadow-2xl shadow-cyan-500/20" : "w-[50vh]"
+          className={`relative rounded-2xl transition-all duration-500 ease-in-out cursor-pointer my-10 ${isHovered ? "z-20 shadow-2xl shadow-cyan-500/20 w-[50vh] md:w-[60vh]" : "w-[40vh] md:w-[50vh]"
             } ${plan.popular
               ? "bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-cyan-500 shadow-2xl shadow-cyan-500/20 hover:shadow-cyan-500/40"
               : "bg-slate-800/50 border border-slate-700 hover:bg-slate-800/70 hover:shadow-lg"
@@ -91,7 +91,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
             </div>
           )}
 
-          <div className={`p-5 lg:p-6 transition-all duration-500 flex flex-col ${isHovered ? "" : "h-[520px]"}`}>
+          <div className={`p-5 lg:p-6 transition-all duration-500 flex flex-col ${isHovered ? "" : ""}`}>
             {/* Plan Header */}
             <div className="mb-4">
               <h3 className={`font-bold text-white transition-all duration-500 ${isHovered ? "text-4xl mb-2" : "text-3xl mb-1"}`}>
@@ -109,14 +109,14 @@ const PricingCard: React.FC<PricingCardProps> = ({
               <h4 className={`font-semibold text-white mb-3 transition-all duration-500 ${isHovered ? "text-lg" : "text-md"}`}>
                 What's included:
               </h4>
-              <div className={`transition-all duration-500 ${isHovered ? "grid grid-cols-2 gap-3" : "grid grid-cols-1 gap-2"}`}>
+              <div className={`transition-all duration-500 ${isHovered ? "grid grid-cols-1 md:grid-cols-2 gap-3" : "grid grid-cols-1 gap-1"}`}>
                 {(isHovered ? plan.features : plan.features.slice(0, 8)).map((feature, idx) => (
                   <div key={idx} className="flex items-start gap-2">
                     <Check
                       className={`flex-shrink-0 transition-all duration-500 ${plan.popular ? "text-cyan-400" : "text-slate-400"
                         } ${isHovered ? "w-5 h-5 mt-0.5" : "w-3 h-3 mt-0.5"}`}
                     />
-                    <span className={`text-slate-200 leading-relaxed transition-all duration-500 ${isHovered ? "text-sm" : "text-md"}`}>
+                    <span className={`text-slate-200 leading-relaxed transition-all duration-500 ${isHovered ? "text-md" : "text-sm"}`}>
                       {feature}
                     </span>
                   </div>
@@ -131,14 +131,14 @@ const PricingCard: React.FC<PricingCardProps> = ({
             <div className="flex items-end justify-between gap-3 pt-4 border-t border-slate-700 mt-auto">
               <div className="flex-1 min-w-0">
                 <div className="flex items-baseline gap-1 mb-1">
-                  <span className={`font-black text-white transition-all duration-500 ${isHovered ? "text-2xl" : "text-3xl"}`}>
+                  <span className={`font-black text-white transition-all duration-500 ${isHovered ? "text-2xl" : "text-xl"}`}>
                     ₱
                   </span>
-                  <span className={`font-black text-white transition-all duration-500 ${isHovered ? "text-4xl" : "text-3xl"}`}>
+                  <span className={`font-black text-white transition-all duration-500 ${isHovered ? "text-3xl" : "text-2xl"}`}>
                     {price.toLocaleString("en-PH", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                   </span>
                 </div>
-                <span className="text-slate-400 font-medium text-md block truncate">{getBillingText()}</span>
+                <span className="text-slate-400 font-medium text-sm block truncate">{getBillingText()}</span>
               </div>
 
               <button
